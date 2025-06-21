@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dog of the Day</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      background-color: yellow;
+      color: rgb(229, 245, 5);
+    }
+    img {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>DOG OF THE DAY</h1>
+    <img :src="dogImage" alt="dog">
+    <p>Name: dog</p>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return { dogImage: '' };
+      },
+      mounted() {
+        this.fetchDog();
+      },
+      methods: {
+        async fetchDog() {
+          const res = await fetch('https://dog.ceo/api/breeds/image/random');
+          const data = await res.json();
+          this.dogImage = data.message;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
